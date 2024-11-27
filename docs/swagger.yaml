@@ -1,0 +1,218 @@
+definitions:
+  postgres.InfoSong:
+    properties:
+      link:
+        type: string
+      releaseDate:
+        type: string
+      text:
+        type: string
+    type: object
+  postgres.Song:
+    properties:
+      group:
+        type: string
+      song:
+        type: string
+    type: object
+  request.ErrorResponse:
+    properties:
+      description:
+        type: string
+      error:
+        type: string
+    type: object
+  request.OkResponse:
+    properties:
+      description:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /info:
+    get:
+      description: Retrieve detailed information about a song by group and title
+      parameters:
+      - description: Music Group
+        in: query
+        name: group
+        required: true
+        type: string
+      - description: Song Name
+        in: query
+        name: song
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/postgres.InfoSong'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+      summary: Get info about a specific song
+      tags:
+      - songs
+  /library:
+    get:
+      description: Retrieve a list of all songs available in the library
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/postgres.Song'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+      summary: Get all songs in the library
+      tags:
+      - library
+  /library/main:
+    get:
+      description: Retrieve the main library information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/postgres.Song'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+      summary: Get the main library information
+      tags:
+      - library
+  /song/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new song to the library by providing song information
+      parameters:
+      - description: Song Data
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/postgres.Song'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/request.OkResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+      summary: Add a new song to the database
+      tags:
+      - songs
+  /song/change:
+    put:
+      consumes:
+      - application/json
+      description: Update the information for an existing song by its ID
+      parameters:
+      - description: Song ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: Updated Song Info
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/postgres.InfoSong'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/request.OkResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+      summary: Update song information
+      tags:
+      - songs
+  /song/delete:
+    delete:
+      description: Delete a song by its ID
+      parameters:
+      - description: Song ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/request.OkResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+      summary: Delete a song
+      tags:
+      - songs
+  /song/text:
+    get:
+      description: Retrieve the lyrics of a song by its ID
+      parameters:
+      - description: Song ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Song Lyrics
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/request.ErrorResponse'
+      summary: Get song lyrics
+      tags:
+      - songs
+swagger: "2.0"

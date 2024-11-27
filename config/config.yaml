@@ -1,0 +1,11 @@
+env: "local"
+db:
+  host: "db"
+  user: "postgres"
+  password: "password"
+  port: 5432
+  dbname: "db"
+HttpServer:
+  address: "0.0.0.0:8081"
+  timeout: 4s
+  idle_timeout: 60s
