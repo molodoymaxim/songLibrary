@@ -40,12 +40,12 @@ func main() {
 
 	router.Mount("/swagger", httpSwagger.WrapHandler)
 
-	router.Post("/EffectiveMobile/AddSong", api.AddSongHandler(log, storageDB))
-	router.Post("/EffectiveMobile/ChangeInfo", api.ChangeInfoSongHandler(log, storageDB))
-	router.Delete("/EffectiveMobile/DeleteSong", api.DeleteSongHandler(log, storageDB))
-	router.Get("/EffectiveMobile/TextSong", api.TextSongHandler(log, storageDB))
-	router.Get("/EffectiveMobile/Library", api.LibraryHandler(log, storageDB))
-	router.Get("/EffectiveMobile/info", api.InfoHandler(log, storageDB))
+	router.Post("/songLibrary/AddSong", api.AddSongHandler(log, storageDB))
+	router.Post("/songLibrary/ChangeInfo", api.ChangeInfoSongHandler(log, storageDB))
+	router.Delete("/songLibrary/DeleteSong", api.DeleteSongHandler(log, storageDB))
+	router.Get("/songLibrary/TextSong", api.TextSongHandler(log, storageDB))
+	router.Get("/songLibrary/Library", api.LibraryHandler(log, storageDB))
+	router.Get("/songLibrary/info", api.InfoHandler(log, storageDB))
 
 	router.Get("/Library", api.LibraryMainHandler(log, storageDB))
 

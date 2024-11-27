@@ -35,7 +35,7 @@ func GetInfoSong(log *slog.Logger, url string) (postgres.InfoSong, error) {
 
 func ChangeInfoSong(log *slog.Logger, infoSong postgres.InfoSong, id int) error {
 	const op = "internal.api.response.changeInfoSong()"
-	url := "http://0.0.0.0:8081/EffectiveMobile/ChangeInfo" + "?id=" + strconv.Itoa(id)
+	url := "http://0.0.0.0:8081/songLibrary/ChangeInfo" + "?id=" + strconv.Itoa(id)
 
 	jsonData, err := json.Marshal(infoSong)
 	if err != nil {

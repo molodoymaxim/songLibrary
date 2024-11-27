@@ -18,7 +18,7 @@ type Database struct {
 	User     string `yaml:"user" env-default:"postgres"`
 	Password string `yaml:"password" env-default:"postgres"`
 	Port     int    `yaml:"port" env-default:"5432"`
-	Dbname   string `yaml:"dbname" env-default:"EffectiveMobileAPI"`
+	Dbname   string `yaml:"dbname" env-default:"songLibrary"`
 }
 
 type HttpServer struct {

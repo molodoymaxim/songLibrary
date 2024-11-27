@@ -9,7 +9,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     depends_on:
       - db
-    command: go run ./cmd/EffectiveMobileAPI/main.go
+    command: go run ./cmd/songLibrary/main.go
 
   db:
     image: postgres:13
